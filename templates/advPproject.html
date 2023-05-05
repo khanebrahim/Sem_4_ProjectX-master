@@ -1,0 +1,601 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% block body %}
+ <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h4>Advance Python projects</h4>
+        <ol>
+          <li><a href="home">Home</a></li>
+          <li>Python Projects</li>
+        </ol>
+      </div>
+
+    </div>
+  </section>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=ruby&amp%3Bskin=sunburst"></script>
+  <style>
+  div.kuber{
+        background-color:white;
+        opacity: 1;
+        border-radius: 5px;
+  }
+  .alert_0 {
+        padding: 20px;
+        margin: 10px;
+        background-color: green;
+        color: white;
+        padding: 10px;
+        border-radius:10px;
+        }
+</style>
+<section id="services" class="services">
+  <div class="container">
+
+<!--    <div class="panel panel-default">-->
+<!--      <h3>Advance Level Python Project Ideas</h3>-->
+<!--      <div class="panel-heading">-->
+<!--        <img src="{% static 'python.png' %}" class="d-block w-100" alt="...">-->
+<!--      </div>-->
+<!--      <div class="panel-body">-->
+      <h4>1. Content Aggregator </h4>
+        <p>Surfing through different websites and articles in search of good and authentic content is a time-consuming process. This Python project can help you save time looking for content. A content aggregator searches popular websites in search for relevant content and then complies with all the content and provides the user with unbiased content</p>
+        <h5>Source Code: </h5>
+      <div class="kuber">
+        <pre class= prettyprint">
+          """ Content Aggregator
+----------------------------------------
+"""
+ import urllib, os, requests, datetime, subprocess
+// reddit imports
+import praw, pprint
+// pip install feedparser
+import feedparser
+// stockexchange
+from nsetools import Nse
+// Place your CLIENT_ID & CLIENT_SECRET below
+reddit = praw.Reddit(client_id='XXXXXXX',
+                     client_secret='XXXXXXXXXXX',
+                     grant_type_access='client_credentials',
+                     user_agent='script/1.0')
+// class Reddit:
+//    def TopNews(self):
+//          Add your favorite NEWS subreddits in the argument as many as you'd like.
+//         for submission in reddit.subreddit('News+WorldNews+UpliftingNews+').top(limit=10):
+//             top_news = reddit.domain(submission).top('month')
+//             print(top_news)
+"""
+Each class contains functions which further calls
+APIs from the neccesary packages and the rest is
+self explanatory I suppose
+"""
+class News:
+    def Indian_News(self):
+        newsfeed = feedparser.parse(
+            "http://feeds.feedburner.com/ndtvnews-india-news"
+        )
+        print("Today's News: ")
+        for i in range(0, 20):
+            entry = newsfeed.entries[i]
+            print(entry.title)
+            print(entry.summary)
+            print("------News Link--------")
+            print(entry.link)
+            print("###########################################")
+        print('-------------------------------------------------------------------------------------------------------')
+class Medium:
+    // https://github.com/thepracticaldev/dev.to/issues/28#issuecomment-325544385
+    def medium_programming(self):
+        feed = feedparser.parse(
+            "https://medium.com/feed/tag/programming"
+        )
+        print("Programming Today: ")
+        for i in range(10):
+            entry = feed.entries[i]
+            print(entry.title)
+            print("URL: " + entry.link)
+            print("###########################################")
+        print('-------------------------------------------------------------------------------------------------------')
+    def medium_python(self):
+        feed_python = feedparser.parse(
+            "https://medium.com/feed/tag/python"
+        )
+        print("Python Today: ")
+        for i in range(10):
+            entry = feed_python.entries[i]
+            print(entry.title)
+            print("URL: " + entry.link)
+            print("###########################################")
+        print('-------------------------------------------------------------------------------------------------------')
+    def medium_developer(self):
+        feed_developer = feedparser.parse(
+            "https://medium.com/feed/tag/developer"
+        )
+        print("Developer News Today: ")
+        for i in range(5):
+            entry = feed_developer.entries[i]
+            print(entry.title)
+            print("URL: " + entry.link)
+            print("###########################################")
+        print('-------------------------------------------------------------------------------------------------------')
+class StockExchange:
+    def nse_stock(self):
+        nse = Nse()
+        print("TOP GAINERS OF YESTERDAY")
+        pprint.pprint(nse.get_top_gainers())
+        print("###########################################")
+        print("TOP LOSERS OF YESTERDAY")
+        pprint.pprint(nse.get_top_losers())
+        print("###########################################")
+        print('-------------------------------------------------------------------------------------------------------')
+// objects inititalization
+// reddit_object = Reddit()
+News_object = News()
+Medium_object = Medium()
+StockExchange_object = StockExchange()
+if __name__ == "__main__":
+    // Functions call of each class
+    // reddit_object.TopNews()
+    News_object.Indian_News()
+    Medium_object.medium_python()
+    Medium_object.medium_programming()
+    Medium_object.medium_developer()
+    StockExchange_object.nse_stock()
+        </pre>
+      </div>
+         </div>
+         <div class="container">
+          <h4>2. Plagiarism Checker </h4>
+            <p>With content creation and blogging one of the good businesses in the market everyone wants to try their hands on this but some lack sufficient funds to give their articles a free plagiarism check as mostly plagiarism checkers do not come for free. Building a Python plagiarism checker could be built here using a natural language processing library along with the search API to search the first few pages of Google and detect plagiarism if any. </p>
+            <h5>Source Code: </h5>
+             <div class="kuber">
+            <pre class= prettyprint">
+              """ Plagiarism Checker
+----------------------------------------
+"""
+import click
+from .matcher import Text, ExtendedMatch, Matcher
+import os
+import glob
+import csv
+import logging
+import itertools
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+def getFiles(path):
+    """
+    Determines whether a path is a file or directory.
+    If it's a directory, it gets a list of all the text files
+    in that directory, recursively. If not, it gets the file.
+    """
+    if os.path.isfile(path):
+        return [path]
+    elif os.path.isdir(path):
+        // Get list of all files in dir, recursively.
+        return glob.glob(path + "/**/*.txt", recursive=True)
+    else:
+        raise click.ClickException("The path %s doesn't appear to be a file or directory" % path)
+def checkLog(logfile, textpair):
+    """
+    Checks the log file to make sure we haven't already done a particular analysis.
+    Returns True if the pair is in the log already.
+    """
+    pairs = []
+    logging.debug('Looking in the log for textpair:' % textpair)
+    if not os.path.isfile(logfile):
+        logging.debug('No log file found.')
+        return None
+    with open(logfile, newline='') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            pairs.append([row[0], row[1]])
+    // logging.debug('Pairs already in log: %s' % pairs)
+    return textpair in pairs
+def createLog(logfile, columnLabels):
+    """
+    Creates a log file and sets up headers so that it can be easily read
+    as a CSV later.
+    """
+    header = ','.join(columnLabels) + '\n'
+    with open(logfile, 'w') as f:
+        f.write(header)
+        f.close
+@click.command()
+@click.argument('text1')
+@click.argument('text2')
+@click.option('-t', '--threshold', type=int, default=3, \
+        help='The shortest length of match to include in the list of initial matches.')
+@click.option('-c', '--cutoff', type=int, default=5, \
+        help='The shortest length of match to include in the final list of extended matches.')
+@click.option('-n', '--ngrams', type=int, default=3, \
+        help='The ngram n-value to match against.')
+@click.option('-l', '--logfile', default='log.txt', help='The name of the log file to write to.'
+@click.option('--stops', is_flag=True, help='Include stopwords in matching.', default=False)
+@click.option('--verbose', is_flag=True, help='Enable verbose mode, giving more information.')
+def cli(text1, text2, threshold, cutoff, ngrams, logfile, verbose, stops):
+    """ This program finds similar text in two text files. """
+    //Determine whether the given path is a file or directory.
+    texts1 = getFiles(text1)
+    texts2 = getFiles(text2)
+    if verbose:
+        logging.basicConfig(level=logging.DEBUG)
+    if stops:
+        logging.debug('Including stopwords in tokenizing.')
+    logging.debug('Comparing this/these text(s): %s' % str(texts1))
+    logging.debug('with this/these text(s): %s' % str(texts2))
+    pairs = list(itertools.product(texts1, texts2))
+    numPairs = len(pairs)
+    logging.debug('Comparing %s pairs.' % numPairs)
+    // logging.debug('List of pairs to compare: %s' % pairs)
+    logging.debug('Loading files into memory.')
+    texts = {}
+    prevTextObjs = {}
+    for filename in texts1+texts2:
+        with open(filename, errors="ignore") as f:
+            text = f.read()
+        if filename not in texts:
+            texts[filename] = text
+    logging.debug('Loading complete.')
+    for index, pair in enumerate(pairs):
+        timeStart = os.times().elapsed
+        logging.debug('Now comparing pair %s of %s.' % (index+1, numPairs))
+        logging.debug('Comparing %s with %s.' % (pair[0], pair[1]))
+        // Make sure we haven't already done this pair.
+        inLog = checkLog(logfile, [pair[0], pair[1]])
+        if inLog is None:
+            // This means that there isn't a log file. Let's set one up.
+            // Set up columns and their labels.
+            columnLabels = ['Text A', 'Text B', 'Threshold', 'Cutoff', 'N-Grams', 'Num Matches', 'Text A Length', 'Text B Length', 'Locations in A', 'Locations in B']
+            logging.debug('No log file found. Setting one up.')
+            createLog(logfile, columnLabels)
+        if inLog:
+            logging.debug('This pair is already in the log. Skipping.')
+            continue
+        logging.debug('Processing texts.')
+        filenameA, filenameB = pair[0], pair[1]
+        textA, textB = texts[filenameA], texts[filenameB]
+        // Put this in a dictionary so we don't have to process a file twice.
+        for filename in [filenameA, filenameB]:
+            if filename not in prevTextObjs:
+                logging.debug('Processing text: %s' % filename)
+                prevTextObjs[filename] = Text(texts[filename], filename)
+        // Just more convenient naming.
+        textObjA = prevTextObjs[filenameA]
+        textObjB = prevTextObjs[filenameB]
+        // Reset the table of previous text objects, so we don't overload memory.
+        // This means we'll only remember the previous two texts.
+        prevTextObjs =
+        // Do the matching.
+        myMatch = Matcher(textObjA, textObjB, threshold=threshold, cutoff=cutoff, ngramSize=ngrams, removeStopwords=stops)
+        myMatch.match()
+        timeEnd = os.times().elapsed
+        timeElapsed = timeEnd-timeStart
+        logging.debug('Matching completed in %s seconds.' % timeElapsed)
+        // Write to the log, but only if a match is found.
+        if myMatch.numMatches > 0:
+            logItems = [pair[0], pair[1], threshold, cutoff, ngrams, myMatch.numMatches, myMatch.textA.length, myMatch.textB.length, str(myMatch.locationsA), str(myMatch.locationsB)]
+            logging.debug('Logging items: %s' % str(logItems))
+            line = ','.join(['"%s"' % item for item in logItems]) + '\n'
+            f = open(logfile, 'a')
+            f.write(line)
+            f.close()
+if __name__ == '__main__':
+    cli()
+            </pre>
+             </div>
+             </div>
+             <div class="container">
+              <h4>3. Web Crawler </h4>
+                <p>Web crawler project is an automated script designed to surf the internet and store the content of certain webpages. A web crawler is especially useful to find up-to-date information using multi-thread concepts in its program.  A crawler bot is built using Python’s request module or Scrapy, a Python’s open-source web crawling framework explicitly designed for web scraping and extracting data by using APIs. Here you can see this python project source code.</p>
+                <h5>Source Code: </h5>
+                 <div class="kuber">
+                <pre class= prettyprint">
+                  """ Web Crawler
+----------------------------------------
+"""
+import re
+import sys
+import time
+import math
+import urllib2
+import urlparse
+import optparse
+import hashli
+from cgi import escape
+from traceback import format_exc
+from Queue import Queue, Empty as QueueEmpty
+from bs4 import BeautifulSoup
+class Link (object):
+    def __init__(self, src, dst, link_type):
+        self.src = src
+        self.dst = dst
+        self.link_type = link_type
+    def __hash__(self):
+        return hash((self.src, self.dst, self.link_type))
+    def __eq__(self, other):
+        return (self.src == other.src and
+                self.dst == other.dst and
+                self.link_type == other.link_type)
+    def __str__(self):
+        return self.src + " -> " + self.dst
+class Crawler(object):
+    def __init__(self, root, depth_limit, confine=None, exclude=[], locked=True, filter_seen=True):
+        self.root = root
+        self.host = urlparse.urlparse(root)[1]
+        ## Data for filters:
+        self.depth_limit = depth_limit # Max depth (number of hops from root)
+        self.locked = locked           # Limit search to a single host?
+        self.confine_prefix=confine    # Limit search to this prefix
+        self.exclude_prefixes=exclude; # URL prefixes NOT to visit
+        self.urls_seen = set()          # Used to avoid putting duplicates in queue
+        self.urls_remembered = set()    # For reporting to user
+        self.visited_links= set()       # Used to avoid re-processing a page
+        self.links_remembered = set()   # For reporting to user
+        self.num_links = 0              # Links found (and not excluded by filters)
+        self.num_followed = 0           # Links followed.
+        # Pre-visit filters:  Only visit a URL if it passes these tests
+        self.pre_visit_filters=[self._prefix_ok,
+                                self._exclude_ok,
+                                self._not_visited,
+                                self._same_host]
+        // Out-url filters: When examining a visited page, only process
+        // links where the target matches these filters.
+        if filter_seen:
+            self.out_url_filters=[self._prefix_ok,
+                                     self._same_host]
+        else:
+            self.out_url_filters=[]
+    def _pre_visit_url_condense(self, url):
+        """ Reduce (condense) URLs into some canonical form before
+        visiting.  All occurrences of equivalent URLs are treated as
+        identical.
+        All this does is strip the \"fragment\" component from URLs,
+        so that http://foo.com/blah.html\#baz becomes
+        http://foo.com/blah.html """
+        base, frag = urlparse.urldefrag(url)
+        return base
+    // URL Filtering functions.  These all use information from the
+    // state of the Crawler to evaluate whether a given URL should be
+    // used in some context.  Return value of True indicates that the
+    // URL should be used.
+    def _prefix_ok(self, url):
+        """Pass if the URL has the correct prefix, or none is specified"""
+        return (self.confine_prefix is None  or
+                url.startswith(self.confine_prefix))
+    def _exclude_ok(self, url):
+        """Pass if the URL does not match any exclude patterns"""
+        prefixes_ok = [ not url.startswith(p) for p in self.exclude_prefixes]
+        return all(prefixes_ok)
+    def _not_visited(self, url):
+        """Pass if the URL has not already been visited"""
+        return (url not in self.visited_links)
+    def _same_host(self, url):
+        """Pass if the URL is on the same host as the root URL"""
+        try:
+            host = urlparse.urlparse(url)[1]
+            return re.match(".*%s" % self.host, host)
+        except Exception, e:
+            print >> sys.stderr, "ERROR: Can't process url '%s' (%s)" % (url, e)
+            return False
+    def crawl(self):
+        """ Main function in the crawling process.  Core algorithm is:
+        q <- starting page
+        while q not empty:
+           url <- q.get()
+           if url is new and suitable:
+              page <- fetch(url)
+              q.put(urls found in page)
+           else:
+              nothing
+        new and suitable means that we don't re-visit URLs we've seen
+        already fetched, and user-supplied criteria like maximum
+        search depth are checked. """
+        q = Queue()
+        q.put((self.root, 0))
+        while not q.empty():
+            this_url, depth = q.get()
+            #Non-URL-specific filter: Discard anything over depth limit
+            if depth > self.depth_limit:
+                continue
+            //Apply URL-based filters.
+            do_not_follow = [f for f in self.pre_visit_filters if not f(this_url)]
+            #Special-case depth 0 (starting URL)
+            if depth == 0 and [] != do_not_follow:
+                print >> sys.stderr, "Whoops! Starting URL %s rejected by the following filters:", do_not_follow
+           //If no filters failed (that is, all passed), process URL
+            if [] == do_not_follow:
+                try:
+                    self.visited_links.add(this_url)
+                    self.num_followed += 1
+                    page = Fetcher(this_url)
+                    page.fetch()
+                    for link_url in [self._pre_visit_url_condense(l) for l in page.out_links()]:
+                        if link_url not in self.urls_seen:
+                            q.put((link_url, depth+1))
+                            self.urls_seen.add(link_url)
+                        do_not_remember = [f for f in self.out_url_filters if not f(link_url)]
+                        if [] == do_not_remember:
+                                self.num_links += 1
+                                self.urls_remembered.add(link_url)
+                                link = Link(this_url, link_url, "href")
+                                if link not in self.links_remembered:
+                                    self.links_remembered.add(link)
+                except Exception, e:
+                    print >>sys.stderr, "ERROR: Can't process url '%s' (%s)" % (this_url, e)
+                    #print format_exc()
+class OpaqueDataException (Exception):
+    def __init__(self, message, mimetype, url):
+        Exception.__init__(self, message)
+        self.mimetype=mimetype
+        self.url=url
+class Fetcher(object):
+    """The name Fetcher is a slight misnomer: This class retrieves and interprets web pages."""
+    def __init__(self, url):
+        self.url = url
+        self.out_urls = []
+    def __getitem__(self, x):
+        return self.out_urls[x]
+    def out_links(self):
+        return self.out_urls
+    //def _addHeaders(self, request):
+    //    request.add_header("User-Agent", AGENT)
+    def _open(self):
+        url = self.url
+        try:
+            request = urllib2.Request(url)
+            handle = urllib2.build_opener()
+        except IOError:
+            return None
+        return (request, handle)
+    def fetch(self):
+        request, handle = self._open()
+        #self._addHeaders(request)
+        if handle:
+            try:
+                data=handle.open(request)
+                mime_type=data.info().gettype()
+                url=data.geturl();
+                if mime_type != "text/html":
+                    raise OpaqueDataException("Not interested in files of type %s" % mime_type,
+                                              mime_type, url)
+                content = unicode(data.read(), "utf-8",
+                        errors="replace")
+                soup = BeautifulSoup(content)
+                tags = soup('a')
+            except urllib2.HTTPError, error:
+                if error.code == 404:
+                    print >> sys.stderr, "ERROR: %s -> %s" % (error, error.url)
+                else:
+                    print >> sys.stderr, "ERROR: %s" % error
+                tags = []
+            except urllib2.URLError, error:
+                print >> sys.stderr, "ERROR: %s" % error
+                tags = []
+            except OpaqueDataException, error:
+                print >>sys.stderr, "Skipping %s, has type %s" % (error.url, error.mimetype)
+                tags = []
+            for tag in tags:
+                href = tag.get("href")
+                if href is not None:
+                    url = urlparse.urljoin(self.url, escape(href))
+                    if url not in self:
+                        self.out_urls.append(url)
+def getLinks(url):
+    page = Fetcher(url)
+    page.fetch()
+    """for i, url in enumerate(page):
+        print "%d. %s" % (i, url) """
+    j = 1
+    for i, url in enumerate(page):
+        if url.find("http")>=0:
+            print "%d. %s" % (j, url)
+            j = j + 1
+def parse_options():
+    """parse_options() -> opts, args
+    Parse any command-line options given returning both
+    the parsed options and arguments.
+    """
+    parser = optparse.OptionParser()
+    parser.add_option("-q", "--quiet",
+            action="store_true", default=False, dest="quiet",
+            help="Enable quiet mode")
+    parser.add_option("-l", "--links",
+            action="store_true", default=False, dest="links",
+            help="Get links for specified url only")
+    parser.add_option("-d", "--depth",
+            action="store", type="int", default=30, dest="depth_limit",
+            help="Maximum depth to traverse")
+    parser.add_option("-c", "--confine",
+            action="store", type="string", dest="confine",
+            help="Confine crawl to specified prefix")
+    parser.add_option("-x", "--exclude", action="append", type="string",
+                      dest="exclude", default=[], help="Exclude URLs by prefix")
+    parser.add_option("-L", "--show-links", action="store_true", default=False,
+                      dest="out_links", help="Output links found")
+    parser.add_option("-u", "--show-urls", action="store_true", default=False,
+                      dest="out_urls", help="Output URLs found")
+    parser.add_option("-D", "--dot", action="store_true", default=False,
+                      dest="out_dot", help="Output Graphviz dot file")
+    opts, args = parser.parse_args()
+    if len(args) < 1:
+        parser.print_help(sys.stderr)
+        raise SystemExit, 1
+    if opts.out_links and opts.out_urls:
+        parser.print_help(sys.stderr)
+        parser.error("options -L and -u are mutually exclusive")
+    return opts, args
+class DotWriter:
+    """ Formats a collection of Link objects as a Graphviz (Dot)
+    graph.  Mostly, this means creating a node for each URL with a
+    name which Graphviz will accept, and declaring links between those
+    nodes."""
+    def __init__ (self):
+        self.node_alias = {}
+    def _safe_alias(self, url, silent=False):
+        """Translate URLs into unique strings guaranteed to be safe as
+        node names in the Graphviz language.  Currently, that's based
+        on the md5 digest, in hexadecimal."""
+        if url in self.node_alias:
+            return self.node_alias[url]
+        else:
+            m = hashlib.md5()
+            m.update(url)
+            name = "N"+m.hexdigest()
+            self.node_alias[url]=name
+            if not silent:
+                print "\t%s [label=\"%s\"];" % (name, url)
+            return name
+    def asDot(self, links):
+        """ Render a collection of Link objects as a Dot graph"""
+        print "digraph Crawl {"
+        print "\t edge [K=0.2, len=0.1];"
+        for l in links:
+            print "\t" + self._safe_alias(l.src) + " -> " + self._safe_alias(l.dst) + ";"
+        print  "}"
+def main():
+    opts, args = parse_options()
+    url = args[0]
+    if opts.links:
+        getLinks(url)
+        raise SystemExit, 0
+    depth_limit = opts.depth_limit
+    confine_prefix=opts.confine
+    exclude=opts.exclude
+    sTime = time.time()
+    print >> sys.stderr,  "Crawling %s (Max Depth: %d)" % (url, depth_limit)
+    crawler = Crawler(url, depth_limit, confine_prefix, exclude)
+    crawler.crawl()
+    if opts.out_urls:
+        print "\n".join(crawler.urls_seen)
+    if opts.out_links:
+        print "\n".join([str(l) for l in crawler.links_remembered])
+    if opts.out_dot:
+        d = DotWriter()
+        d.asDot(crawler.links_remembered)
+    eTime = time.time()
+    tTime = eTime - sTime
+    print >> sys.stderr, "Found:    %d" % crawler.num_links
+    print >> sys.stderr, "Followed: %d" % crawler.num_followed
+    print >> sys.stderr, "Stats:    (%d/s after %0.2fs)" % (
+            int(math.ceil(float(crawler.num_links) / tTime)), tTime)
+if __name__ == "__main__":
+    main()
+                </pre>
+
+                 </div>
+             </div>
+    <div class="alert_0">
+      <strong>Request Project!</strong> For other projects contact us.
+    Charges as per level of the project.
+    </div>
+</section>{% endblock body %}
+<!--      <div class="alert_0">-->
+<!--      <strong>Request Project!</strong> For other projects contact us.-->
+<!--    Charges as per level of the project.-->
+<!--    </div>-->
+<!--</div>-->

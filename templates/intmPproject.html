@@ -1,0 +1,415 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock title %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{% block body %}
+<!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h4>Intermediate Python Project</h4>
+        <ol>
+          <li><a href="home">Home</a></li>
+          <li>Python Projects</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=ruby&amp%3Bskin=sunburst"></script>
+  <style>
+    div.kuber{
+        background-color:white;
+        opacity: 1;
+        border-radius: 5px;
+  }
+  .alert_0 {
+        padding: 20px;
+        margin: 10px;
+        background-color: green;
+        color: white;
+        padding: 10px;
+        border-radius:10px;
+        }
+</style>
+  <section id="services" class="services">
+    <div class="container" >
+        <h4>1. Calculator </h4>
+        <p>Building this project you would learn to design a graphical UI and make you familiar with a library like Tkinter. This library enables you to create buttons to perform different operations and display results on the screen. </p>
+        <h5>Source Code: </h5>
+
+    <div class="kuber">
+        <pre class= "prettyprint">
+          """ Calculator"""
+----------------------------------------
+def addition ():
+  print("Addition")
+  n = float(input("Enter the number: "))
+  t = 0 //Total number enter
+  ans = 0
+  while n != 0:
+      ans = ans + n
+      t+=1
+      n = float(input("Enter another number (0 to calculate): "))
+  return [ans,t]
+def subtraction ():
+  print("Subtraction");
+  n = float(input("Enter the number: "))
+  t = 0 //Total number enter
+  sum = 0
+  while n != 0:
+      ans = ans - n
+      t+=1
+      n = float(input("Enter another number (0 to calculate): "))
+  return [ans,t]
+def multiplication ():
+  print("Multiplication")
+  n = float(input("Enter the number: "))
+  t = 0 //Total number enter
+  ans = 1
+  while n != 0:
+      ans = ans * n
+      t+=1
+      n = float(input("Enter another number (0 to calculate): "))
+  return [ans,t]
+def average():
+  an = []
+  an = addition()
+  t = an[1]
+  a = an[0]
+  ans = a / t
+  return [ans,t]
+// main...
+while True:
+  list = []
+  print(" My first python program!")
+  print(" Simple Calculator in python by Malik Umer Farooq")
+  print(" Enter 'a' for addition")
+  print(" Enter 's' for substraction")
+  print(" Enter 'm' for multiplication")
+  print(" Enter 'v' for average")
+  print(" Enter 'q' for quit")
+  c = input(" ")
+  if c != 'q':
+      if c == 'a':
+          list = addition()
+          print("Ans = ", list[0], " total inputs ",list[1])
+      elif c == 's':
+          list = subtraction()
+          print("Ans = ", list[0], " total inputs ",list[1])
+      elif c == 'm':
+          list = multiplication()
+          print("Ans = ", list[0], " total inputs ",list[1])
+      elif c == 'v':
+          list = average()
+          print("Ans = ", list[0], " total inputs ",list[1])
+      else:
+          print ("Sorry, invilid character")
+  else:
+      break
+            </pre></div>
+
+</div>
+<div class="container">
+    <h4>2. Alarm Clock  </h4>
+    <p>This is an interesting Command Line Interface (CLI) Python application for an intermediate-level developer. People across the globe use alarm clock features in their devices but this project can be altered in a bit different manner. Some certain YouTube links can be added to a text file and the project is programmed in a way that when a user sets an alarm then the code shall pick a random link from the video and will start playing the YouTube link.</p>
+     <h5>Source Code: </h5>
+    <div class="kuber">
+    <pre class= "prettyprint">
+      """ Alarm Clock
+----------------------------------------
+"""
+import datetime
+import os
+import time
+import random
+import webbrowser
+// If video URL file does not exist, create one
+if not os.path.isfile("youtube_alarm_videos.txt"):
+print('Creating "youtube_alarm_videos.txt"...')
+with open("youtube_alarm_videos.txt", "w") as alarm_file:
+alarm_file.write("https://www.youtube.com/watch?v=anM6uIZvx74")
+def check_alarm_input(alarm_time):
+"""Checks to see if the user has entered in a valid alarm time"""
+if len(alarm_time) == 1: // [Hour] Format
+if alarm_time[0] < 24 and alarm_time[0] >= 0:
+  return True
+if len(alarm_time) == 2: // [Hour:Minute] Format
+if alarm_time[0] < 24 and alarm_time[0] >= 0 and \
+ alarm_time[1] < 60 and alarm_time[1] >= 0:
+  return True
+elif len(alarm_time) == 3: // [Hour:Minute:Second] Format
+if alarm_time[0] < 24 and alarm_time[0] >= 0 and \
+ alarm_time[1] < 60 and alarm_time[1] >= 0 and \
+ alarm_time[2] < 60 and alarm_time[2] >= 0:
+  return True
+return False
+// Get user input for the alarm time
+print("Set a time for the alarm (Ex. 06:30 or 18:30:00)")
+while True:
+alarm_input = input(">> ")
+try:
+alarm_time = [int(n) for n in alarm_input.split(":")]
+if check_alarm_input(alarm_time):
+  break
+else:
+  raise ValueError
+except ValueError:
+print("ERROR: Enter time in HH:MM or HH:MM:SS format")
+// Convert the alarm time from [H:M] or [H:M:S] to seconds
+seconds_hms = [3600, 60, 1] // Number of seconds in an Hour, Minute, and Second
+alarm_seconds = sum([a*b for a,b in zip(seconds_hms[:len(alarm_time)], alarm_time)])
+// Get the current time of day in seconds
+now = datetime.datetime.now()
+current_time_seconds = sum([a*b for a,b in zip(seconds_hms, [now.hour, now.minute, now.second])])
+// Calculate the number of seconds until alarm goes off
+time_diff_seconds = alarm_seconds - current_time_seconds
+// If time difference is negative, set alarm for next day
+if time_diff_seconds < 0:
+time_diff_seconds += 86400 // number of seconds in a day
+// Display the amount of time until the alarm goes off
+print("Alarm set to go off in %s" % datetime.timedelta(seconds=time_diff_seconds))
+// Sleep until the alarm goes off
+time.sleep(time_diff_seconds)
+// Time for the alarm to go off
+print("Wake Up!")
+// Load list of possible video URLs
+with open("youtube_alarm_videos.txt", "r") as alarm_file:
+videos = alarm_file.readlines()
+// Open a random video from the list
+webbrowser.open(random.choice(videos))
+    </pre>
+</div>
+</div>
+<div class="container">
+    <h4>3. Tic- Tac- Toe </h4>
+                  <p>
+                    This game is very popular amongst all of us and even fun to build as a Python project. I am pretty sure most of us know how to play it but let me give a quick brush up.
+
+                    It is a two-player game and consists of a nine-square grid. Each player chooses their move and with O or X and marks their square one at each chance. The player who succeeds in making their marks all in one line whether diagonally, horizontally, or vertically wins. The challenge for the other player is to block the game for their opponent and also to make their chain.
+
+                    For building this project in Python who can use the Pygame Python library that is loaded with all computer graphics and sounds.
+                  </p><h5>Source Code: </h5>
+    <div class="kuber">
+        <pre class= "prettyprint">
+            """ Tic Tac Toe
+            ----------------------------------------
+            """
+            import random
+            import sys
+            board=[i for i in range(0,9)]
+            player, computer = '',''
+            // Corners, Center and Others, respectively
+            moves=((1,7,3,9),(5,),(2,4,6,8))
+            // Winner combinations
+            winners=((0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6))
+            // Table
+            tab=range(1,10)
+            def print_board():
+                x=1
+                for i in board:
+                    end = ' | '
+                    if x%3 == 0:
+                        end = ' \n'
+                        if i != 1: end+='---------\n';
+                    char=' '
+                    if i in ('X','O'): char=i;
+                    x+=1
+                    print(char,end=end)
+            def select_char():
+                chars=('X','O')
+                if random.randint(0,1) == 0:
+                    return chars[::-1]
+                return chars
+            def can_move(brd, player, move):
+                if move in tab and brd[move-1] == move-1:
+                    return True
+                return False
+            def can_win(brd, player, move):
+                places=[]
+                x=0
+                for i in brd:
+                    if i == player: places.append(x);
+                    x+=1
+                win=True
+                for tup in winners:
+                    win=True
+                    for ix in tup:
+                        if brd[ix] != player:
+                            win=False
+                            break
+                    if win == True:
+                        break
+                return win
+            def make_move(brd, player, move, undo=False):
+                if can_move(brd, player, move):
+                    brd[move-1] = player
+                    win=can_win(brd, player, move)
+                    if undo:
+                        brd[move-1] = move-1
+                    return (True, win)
+                return (False, False)
+            // AI goes here
+            def computer_move():
+                move=-1
+                // If I can win, others do not matter.
+                for i in range(1,10):
+                    if make_move(board, computer, i, True)[1]:
+                        move=i
+                        break
+                if move == -1:
+                   // If player can win, block him.
+                    for i in range(1,10):
+                        if make_move(board, player, i, True)[1]:
+                            move=i
+                            break
+                if move == -1:
+                    // Otherwise, try to take one of desired places.
+                    for tup in moves:
+                        for mv in tup:
+                            if move == -1 and can_move(board, computer, mv):
+                                move=mv
+                                break
+                return make_move(board, computer, move)
+            def space_exist():
+                return board.count('X') + board.count('O') != 9
+            player, computer = select_char()
+            print('Player is [%s] and computer is [%s]' % (player, computer))
+            result='%%% Deuce ! %%%'
+            while space_exist():
+                print_board()
+                print('#Make your move ! [1-9] : ', end='')
+                move = int(input())
+                moved, won = make_move(board, player, move)
+                if not moved:
+                    print(' >> Invalid number ! Try again !')
+                    continue
+                //
+                if won:
+                    result='*** Congratulations ! You won ! ***'
+                    break
+                elif computer_move()[1]:
+                    result='=== You lose ! =='
+                    break;
+            print_board()
+            print(result)
+          </pre>
+    </div>
+</div>
+<div class="container"> <h4>4. Directory Tree Generator</h4>
+    <p>This project is useful for visualizing the relationship between files and directories and making their positioning easy to comprehend. Python OS library can be used to list the files and directories within a specific directory. The excellent frameworks of this project are Docopt and Argparse.</p>
+    <h5>Source Code: </h5>
+    <div  class="kuber"> <pre class= "prettyprint">
+        """ Directory Tree Generator
+        ----------------------------------------
+        """
+import argparse
+import os
+from walkdir import filtered_walk
+parser = argparse.ArgumentParser(description='Print the directory-tree code for the LaTeX dirtree package.')
+parser.add_argument(dest='path', type=str, help="Root directory of the tree")
+parser.add_argument('-d', '--maxDepth', dest='maxDepth', type=int, help="Max depth for tree expansion")
+parser.add_argument('-H', '--includeHidden', dest='includeHidden', action='store_true', help='Include hidden files')
+parser.add_argument('-S', '--includeSystem', dest='includeSystem', action='store_true', help='Include system files')
+system_file_names = [".DS_Store"]
+// Delete trailing / in rootDir which can lead to errors
+def delete_trailing_slash(path_name):
+while path_name.endswith('/'):
+path_name = path_name[:-1]
+return path_name
+// Count how many levels deep is the directory with respect to dirRoot
+def get_relative_depth(dir_path, level_offset):
+return dir_path.count(os.path.sep) - level_offset
+// Escape illegal symbols for LaTeX
+def escape_illegal(name):
+illegal_char_array = ['\\', '&', '%', '$', '#', '_', '{', '}', '~', '^']
+for char in illegal_char_array:
+name = name.replace(char, "\\" + char)
+return name
+rootDir = delete_trailing_slash(parser.parse_args().path)
+includeHidden = parser.parse_args().includeHidden
+includeSystem = parser.parse_args().includeSystem
+maxDepth = parser.parse_args().maxDepth
+// if the directory exists
+if os.path.isdir(rootDir) and os.path.exists(rootDir):
+indentChar = " "
+// Depth of the root (i.e. number of "/")
+levelOffset = rootDir.count(os.path.sep) - 1
+// Create filter
+excluded_filter = []
+if not includeHidden:
+excluded_filter.append(".*")
+if not includeSystem:
+excluded_filter += system_file_names
+print ("\dirtree{%")
+for dirName, subdirList, fileList in sorted(filtered_walk(rootDir, depth=maxDepth, excluded_dirs=excluded_filter,
+                                       excluded_files=excluded_filter)):
+level = get_relative_depth(dirName, levelOffset)
+baseName = os.path.basename(dirName)
+if level == 1:  // for the first level only print the whole path
+print(indentChar + "." + str(level) + " {" + escape_illegal(dirName) + "} .")
+else:
+print(indentChar * level + "." + str(level) + " {" + escape_illegal((os.path.basename(dirName))) + "} .")
+level += 1
+for fileName in sorted(fileList):
+print(indentChar * level + "." + str(level) + " {" + escape_illegal(fileName) + "} .")
+print ("}")
+else:
+print ("Error: root directory not found")"
+      </pre>
+</div>
+</div>
+
+<div class="container">
+    <h4>5. Currency Converter </h4>
+    <p>
+        This is a straightforward project with a simple GUI. The name quite evidently describes the role of the project is to convert currencies from one unit into another. For example, converting Indian rupee to USD or euro. Tkinter, the standard Python interface can be used to design and develop this application.
+    </p>
+    <h5>Sample Code:</h5>
+    <div class="kuber">
+        <pre class="prettyprint">
+            """ Currency Converter
+            ----------------------------------------
+            """
+            import urllib.request
+            import json
+            def currency_converter(currency_from, currency_to, currency_input):
+                yql_base_url = "https://query.yahooapis.com/v1/public/yql"
+                yql_query = 'select%20*%20from%20yahoo.finance.xchange%20where%20pair' \
+                            '%20in%20("'+currency_from+currency_to+'")'
+                yql_query_url = yql_base_url + "?q=" + yql_query + "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
+                try:
+                    yql_response = urllib.request.urlopen(yql_query_url)
+                    try:
+                        json_string = str(yql_response.read())
+                        json_string = json_string[2:
+                        json_string = json_string[:-1]
+                        print(json_string)
+                        yql_json = json.loads(json_string)
+                        last_rate = yql_json['query']['results']['rate']['Rate']
+                        currency_output = currency_input * float(last_rate)
+                        return currency_output
+                    except (ValueError, KeyError, TypeError):
+                        print(yql_query_url)
+                        return "JSON format error"
+                except IOError as e:
+                    print(str(e))
+            currency_input = 1
+            // currency codes : http://en.wikipedia.org/wiki/ISO_4217
+            currency_from = "USD"
+            currency_to = "TRY"
+            rate = currency_converter(currency_from, currency_to, currency_input)
+            print(rate)
+        </pre>
+    </div></div>
+      <div class="alert_0">
+      <strong>Request Project!</strong> For other projects contact us.
+    Charges as per level of the project.
+    </div>
+  </section>
+
+{% endblock body %}

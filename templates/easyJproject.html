@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% block body %}
+
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h4>Easy Java Project</h4>
+        <ol>
+          <li><a href="home">Home</a></li>
+          <li>Java Projects</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=ruby&amp%3Bskin=sunburst"></script>
+  <style>
+    div.kuber{
+        background-color:white;
+        opacity: 1;
+        border-radius: 5px;
+  }
+  .alert_0 {
+        padding: 20px;
+        margin: 10px;
+        background-color: green;
+        color: white;
+        padding: 10px;
+        border-radius:10px;
+        }
+</style>
+  <section id="services" class="services">
+  <div class="container">
+<!--  <div class="panel panel-default">-->
+<!--    <h3>Beginner Level Java Project Ideas</h3>-->
+<!--    <div class="panel-heading">-->
+<!--      <img src="{% static 'ja.png' %}" class="d-block w-100" alt="...">-->
+<!--    </div>-->
+<!--    <div class="panel-body">-->
+    <h4>1. Currency Converter</h4>
+      <p>Different countries have different currencies and these currencies have daily variations relative to one another. People must be updated with the latest currency exchange rate while money transfer. So, the currency converter is a mini-Java project that provides a web-based interface for exchanging/converting money from one currency to another. It is developed using Ajax, Java servlets web features. Such applications have used for business, shares & finance-related areas.</p>
+      <h5>Source Code: </h5>
+      <div class="kuber">
+      <pre class= "prettyprint">
+        /*
+        * To change this template, choose Tools | Templates
+        * and open the template in the editor.
+        */
+       package com.exchange;
+
+       import java.io.*;
+       import java.net.*;
+       import java.util.*;
+       import javax.servlet.*;
+       import javax.servlet.http.*;
+       import java.io.InputStream;
+       import java.net.*;
+       import com.google.gson.*;
+
+       /**
+        *
+        * @author pakallis
+        */
+       class Recv
+       {
+       private String lhs;
+       private String rhs;
+       private String error;
+       private String icc;
+       public Recv(
+       {
+       }
+       public String getLhs()
+       {
+       return lhs;
+       }
+       public String getRhs()
+       {
+       return rhs;
+       }
+       }
+       public class Convert extends HttpServlet {
+           /**
+            * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+            * @param request servlet request
+            * @param response servlet response
+            * @throws ServletException if a servlet-specific error occurs
+            * @throws IOException if an I/O error occurs
+            */
+           protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
+                   throws ServletException, IOException {
+               String query = "";
+               String amount = "";
+               String curTo = "";
+               String curFrom = "";
+               String submit = "";
+               String res = "";
+               HttpSession session;
+               resp.setContentType("text/html;charset=UTF-8");
+               PrintWriter out = resp.getWriter();
+               /*Read request parameters*/
+               amount = req.getParameter("amount");
+               curTo = req.getParameter("to");
+               curFrom = req.getParameter("from");
+               /*Open a connection to google and read the result*/
+
+               try {
+                   query = "http://www.google.com/ig/calculator?hl=en&q=" + amount + curFrom + "=?" + curTo;
+                   URL url = new URL(query);
+                   InputStreamReader stream = new InputStreamReader(url.openStream());
+                   BufferedReader in = new BufferedReader(stream);
+                   String str = "";
+                   String temp = "";
+                   while ((temp = in.readLine()) != null) {
+                       str = str + temp;
+                   }
+
+                   /*Parse the result which is in json format*/
+                   Gson gson = new Gson();
+                   Recv st = gson.fromJson(str, Recv.class);
+                   String rhs = st.getRhs();
+                   rhs = rhs.replaceAll("�", "");
+                   /*we do the check in order to print the additional word(millions,billions etc)*/
+                   StringTokenizer strto = new StringTokenizer(rhs);
+                   String nextToken;
+
+                   out.write(strto.nextToken());
+                   nextToken = strto.nextToken();
+
+                   if( nextToken.equals("million") || nextToken.equals("billion") || nextToken.equals("trillion"))
+                   {
+                       out.println(" "+nextToken);
+                   }
+               } catch (NumberFormatException e) {
+                   out.println("The given amount is not a valid number");
+               }
+           }
+           // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+           /**
+            * Handles the HTTP <code>GET</code> method.
+            * @param request servlet request
+            * @param response servlet response
+            * @throws ServletException if a servlet-specific error occurs
+            * @throws IOException if an I/O error occurs
+            */
+           @Override
+           protected void doGet(HttpServletRequest request, HttpServletResponse response)
+                   throws ServletException, IOException {
+               processRequest(request, response);
+           }
+           /**
+            * Handles the HTTP <code>POST</code> method.
+            * @param request servlet request
+            * @param response servlet response
+            * @throws ServletException if a servlet-specific error occurs
+            * @throws IOException if an I/O error occurs
+            */
+           @Override
+           protected void doPost(HttpServletRequest request, HttpServletResponse response)
+                   throws ServletException, IOException {
+               processRequest(request, response);
+           }
+           /**
+            * Returns a short description of the servlet.
+            * @return a String containing servlet description
+            */
+           @Override
+           public String getServletInfo() {
+               return "Short description";
+           }// </editor-fold>
+       }
+          </pre>
+      </div>
+       </div>
+       <div class="container">
+        <h4>2. Number Guessing Game</h4>
+          <p>The fun and easy project “Guess the Number” is a short Java project that allows the user to guess the number generated by the computer & involves the following steps:
+
+            The system generates a random number from a given range, say 1 to 100.
+            The user is prompted to enter their given number in a displayed dialogue box.
+            The computer then tells if the entered number matches the guesses number or it is higher/lower than the generated number.
+            The game continues under the user guessing the number.
+            You can also incorporate further details as:
+
+            Limiting the number of attempts.
+            Adding more rounds.
+            Displaying score.
+            Giving points based on the number of attempts.
+            </p>
+          <h5>Source Code: </h5>
+           <div class="kuber">
+          <pre class= "prettyprint">
+            package guessinggame;
+* Java game “Guess a Number” that allows user to guess a random number that has been generated.
+*/
+import javax.swing.*;
+
+public class GuessingGame {
+    public static void main(String[] args) {
+        int computerNumber = (int) (Math.random()*100 + 1);
+        int userAnswer = 0;
+        System.out.println("The correct guess would be " + computerNumber);
+        int count = 1;
+
+        while (userAnswer != computerNumber)
+        {
+            String response = JOptionPane.showInputDialog(null,
+                "Enter a guess between 1 and 100", "Guessing Game", 3);
+            userAnswer = Integer.parseInt(response);
+            JOptionPane.showMessageDialog(null, ""+ determineGuess(userAnswer, computerNumber, count));
+            count++;
+        }
+    }
+
+    public static String determineGuess(int userAnswer, int computerNumber, int count){
+        if (userAnswer <=0 || userAnswer >100) {
+            return "Your guess is invalid";
+        }
+        else if (userAnswer == computerNumber ){
+            return "Correct!\nTotal Guesses: " + count;
+        }
+        else if (userAnswer > computerNumber) {
+            return "Your guess is too high, try again.\nTry Number: " + count;
+        }
+        else if (userAnswer < computerNumber) {
+            return "Your guess is too low, try again.\nTry Number: " + count;
+        }
+        else {
+            return "Your guess is incorrect\nTry Number: " + count;
+        }
+    }
+}
+
+
+              </pre>
+</div>
+           </div>
+
+           <div class="container">
+            <h4>3. Brick Breaker Game</h4>
+              <p>Brick Breaker game consists of bricks aligned at the top of the screen. The player is represented as a tiny ball that is placed on a small platform at the bottom of the screen. The platform can be moved around from left to right on the screen with the help of arrow keys on the keyboard. The player uses the platform to keep the ball running. The goal is to break the bricks without missing the ball with your platform. The project makes use of Java swing, OOPS concepts and much more.</p>
+              <h5>Source Code: </h5>
+               <div class="kuber">
+              <pre class= "prettyprint">
+<a href="https://github.com/awaismirza/Java-Game-Brick-Breaker">Brick Breaker Game</a>
+                  </pre>
+               </div>
+               </div>
+      <div class="alert_0">
+      <strong>Request Project!</strong> For other projects contact us.
+    Charges as per level of the project.
+    </div>
+  </section>
+{% endblock body %}
+
+
+
+<!--</div>-->
+<!--</div>-->
+<!--    <div class="alert_0">-->
+<!--      <strong>Request Project!</strong> For other projects contact us.-->
+<!--    Charges as per level of the project.-->
+<!--    </div>-->
+<!--</div>

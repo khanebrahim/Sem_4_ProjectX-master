@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% block body %}
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h4>Advance C++ projects</h4>
+        <ol>
+          <li><a href="home">Home</a></li>
+          <li>C++ Project</li>
+        </ol>
+      </div>
+
+    </div>
+  </section>
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=ruby&amp%3Bskin=sunburst"></script>
+ <style>
+    div.kuber{
+        background-color:white;
+        opacity: 1;
+        border-radius: 5px;
+  }
+  .alert_0 {
+        padding: 20px;
+        margin: 10px;
+        background-color: green;
+        color: white;
+        padding: 10px;
+        border-radius:10px;
+        }
+</style>
+<section id="services" class="services">
+  <div class="container">
+<!--    <h3>Advance Level C++ Project Ideas</h3>-->
+<!--    <div class="panel-heading">-->
+<!--      <img src="{% static 'c++.png' %}" class="d-block w-100" alt="...">-->
+<!--    </div>-->
+<!--    <div class="panel-body">-->
+    <h4>1. Car Rental System</h4>
+      <p>This is a trendy project and very useful for learning about keyboard events, date-time functions, and implementing a C++ login system. The program has separate menus for admin and other users. There are also methods to calculate fare based on time and distance, including displaying car details, availability, etc.</p>
+        <h5>Source Code: </h5>
+        <div class="kuber">
+      <pre class= "prettyprint">
+<a href="https://github.com/thegreat1411vrishank/how-to-make-a-car-rental-system-using-c--">Check the source code on GitHub : https://github.com/PFYCS/Car-Rental-System.git</a>
+          </pre>
+        </div>
+       </div>
+
+       <div class="container">
+        <h4>2. Credit Card Validator</h4>
+          <p>This is a simple project that uses Luhn’s algorithm to validate a user's credit card. The program works for all popular cards like Visa, Amex, MasterCard, etc. Luhn’s algorithm checks for basic validations; for example, a Visa card should start with 4 and then moves on to complex digit-wise calculations. It is a good program to learn because most e-commerce transactions require credit card validation.
+            </p>
+          <h5>Source Code: </h5>
+           <div class="kuber">
+          <pre class= "prettyprint">
+<a href="https://github.com/karancodes/credit-card-validator/blob/master/credit-card-validator.cpp">You can download the source code from the GitHub website.</a>
+              </pre>
+           </div>
+           </div>
+
+           <div class="container">
+            <h4>3. Using Graphics to Draw and Move Shapes</h4>
+              <p>In this graphics program, you will learn to make a car and then make it move using graphics. This is a simple program written using Turbo C++; however, the same program will work on other IDEs like Dev C++. Code:: Blocks and Visual Studios. You have to get the graphics.h file for the program to work.</p>
+                <h5>Source Code: </h5>
+               <div class="kuber">
+              <pre class= "prettyprint">
+<a href="https://www.youtube.com/watch?v=-sYRiqVWi3Y">Check the YouTube link to understand the program. </a>
+                  </pre>
+
+               </div>
+           </div>
+
+<div class="alert_0">
+      <strong>Request Project!</strong> For other projects contact us.
+    Charges as per level of the project.
+    </div>
+</section>{% endblock body %}
+
